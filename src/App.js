@@ -20,17 +20,24 @@ class App extends Component {
     this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); })
   };
 
+  // Reusable reset clicked and score function
+  resetClickedAndScore = () => {
+    this.setState({
+      clicked: [],
+      score: 0
+    })
+  };
+
   imgClick = event => {
+
+    // When a card is clicked, remove from array
     const currentFriend = event.target.id;
     const IsFriendClicked = this.state.clicked.indexOf(currentFriend) > -1;
 
     // If that friend HAS been clicked, reset game, reorder cards
     if (IsFriendClicked) {
       this.shuffleFriends();
-      this.setState({
-        clicked: [],
-        score: 0
-      });
+      this.resetClickedAndScore();
 
     // If that friend HASN'T been clicked, increase score, reorder cards
     } else {
@@ -44,11 +51,9 @@ class App extends Component {
       // If you get all 12 friends, reset game, reorder cards
       () => {
         if (this.state.score === 12) {
+          alert('You have won the Game of Thrones!');
           this.shuffleFriends();
-          this.setState({
-            clicked: [],
-            score: 0
-          });
+          this.resetClickedAndScore();
         }
       });
     }
