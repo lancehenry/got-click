@@ -15,23 +15,27 @@ class App extends Component {
     score: 0
   };
 
+  // Reusable shuffleFriends function
+  shuffleFriends = () => {
+    this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); })
+  };
+
   imgClick = event => {
-    const currentFriend = event.target.alt;
+    const currentFriend = event.target.id;
     const IsFriendClicked = this.state.clicked.indexOf(currentFriend) > -1;
 
     // If that friend HAS been clicked, reset game, reorder cards
     if (IsFriendClicked) {
+      this.shuffleFriends();
       this.setState({
-        friends: this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); }),
         clicked: [],
         score: 0
       });
 
     // If that friend HASN'T been clicked, increase score, reorder cards
     } else {
-      this.setState({
-        friends: this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); }),
-        
+      this.shuffleFriends();
+      this.setState({        
         // Concat function to use below https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
         clicked: this.state.clicked.concat(currentFriend),
         score: this.state.score + 1
@@ -40,8 +44,8 @@ class App extends Component {
       // If you get all 12 friends, reset game, reorder cards
       () => {
         if (this.state.score === 12) {
+          this.shuffleFriends();
           this.setState({
-            friends: this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); }),
             clicked: [],
             score: 0
           });
