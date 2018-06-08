@@ -1,57 +1,76 @@
+// Import dependencies and files
 import React, { Component } from "react";
+import Navbar from "./components/Navbar";
+import Jumbotron from "./components/Jumbotron";
 import FriendCard from "./components/FriendCard";
-import Wrapper from "./components/Wrapper";
-import Header from "./components/Header";
+import Footer from "./components/Footer";
 import friends from "./characters.json";
 import "./App.css";
 
+// Set initial state
 class App extends Component {
-  // Setting this.state.friends to the friends json array
   state = {
     friends,
-    clicked: false,
-    count: 0
+    clicked: [],
+    score: 0
   };
 
-  sortCharacters = friends => {
-    let friendsSorted = this.state.friends.sort( (a,b) => {return 0.5 - Math.random()});
+  imgClick = event => {
+    const currentFriend = event.target.alt;
+    const IsFriendClicked = this.state.clicked.indexOf(currentFriend) > -1;
 
-    friends = friendsSorted;
-    
-    this.setState({ friends });
+    // If that friend HAS been clicked, reset game, reorder cards
+    if (IsFriendClicked) {
+      this.setState({
+        friends: this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); }),
+        clicked: [],
+        score: 0
+      });
 
-    this.handleClicked();
-    // console.log(this.state.clicked);
-    // console.log(friends);
-    
-    
-  }
+    // If that friend HASN'T been clicked, increase score, reorder cards
+    } else {
+      this.setState({
+        friends: this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); }),
+        
+        // Concat function to use below https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat
+        clicked: this.state.clicked.concat(currentFriend),
+        score: this.state.score + 1
+      },
 
-  updateScore = () => {
-    this.setState({ count: this.state.count + 1 });
-    
+      // If you get all 12 friends, reset game, reorder cards
+      () => {
+        if (this.state.score === 12) {
+          this.setState({
+            friends: this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); }),
+            clicked: [],
+            score: 0
+          });
+        }
+      });
+    }
   };
 
-  handleClicked = id => {
-    // 1. check state of friend that is clicked
-    // 2. if state clicked=false set to true
-    // 3. if state clicked=true, end the game
-  };
-
-  // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
-      <Wrapper>
-        <Header>Friends List</Header>
-        {this.state.friends.map(friend => (
-          <FriendCard
-            sortCharacters={this.sortCharacters}
-            id={friend.id}
-            key={friend.id}
-            image={friend.image}
-          />
-        ))}
-      </Wrapper>
+      <div className="App">
+        <Navbar
+          score={this.state.score}
+        />
+        <Jumbotron />
+          <div className="container">
+            <div className="row">
+            {this.state.friends.map(friends => (
+            <FriendCard
+              imgClick={this.imgClick}
+              id={friends.id}
+              key={friends.id}
+              image={friends.image}
+            />
+            ))}
+            </div>
+          </div>
+        <Footer />
+      </div>
     );
   }
 }
