@@ -1,51 +1,54 @@
-import React, { Component } from 'react';
-import FriendCard from './components/FriendCard';
-import Wrapper from './components/Wrapper';
-import Title from './components/Title';
-import friends from './characters.json';
-import './App.css';
+import React, { Component } from "react";
+import FriendCard from "./components/FriendCard";
+import Wrapper from "./components/Wrapper";
+import Header from "./components/Header";
+import friends from "./characters.json";
+import "./App.css";
 
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
     friends,
-    click: false,
+    clicked: false,
     count: 0
   };
 
-  // countIncrease increases this.state.count by 1
-  countIncrease = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+  sortCharacters = friends => {
+    let friendsSorted = this.state.friends.sort( (a,b) => {return 0.5 - Math.random()});
 
-  // clicked changes this.state.click to true
-  clicked =  () => {
-    this.setState({ click: true });
-  };
-
-  // Sorting through characters array, shuffling
-  sortCharacters = id => {
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-
+    friends = friendsSorted;
+    
     this.setState({ friends });
-    alert('this got clicked');
-    console.log(friends.id);
+
+    this.handleClicked();
+    // console.log(this.state.clicked);
+    // console.log(friends);
+    
+    
+  }
+
+  updateScore = () => {
+    this.setState({ count: this.state.count + 1 });
+    
+  };
+
+  handleClicked = id => {
+    // 1. check state of friend that is clicked
+    // 2. if state clicked=false set to true
+    // 3. if state clicked=true, end the game
   };
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
       <Wrapper>
-        <Title>Friends List</Title>
+        <Header>Friends List</Header>
         {this.state.friends.map(friend => (
           <FriendCard
             sortCharacters={this.sortCharacters}
             id={friend.id}
             key={friend.id}
-            // name={friend.name}
             image={friend.image}
-            // occupation={friend.occupation}
-            // location={friend.location}
           />
         ))}
       </Wrapper>
