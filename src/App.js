@@ -59,14 +59,14 @@ class App extends Component {
         <Jumbotron />
           <div className="container">
             <div className="row">
-            {this.state.friends.map(friends => (
-            <FriendCard
-              imgClick={this.imgClick}
-              id={friends.id}
-              key={friends.id}
-              image={friends.image}
-            />
-            ))}
+              {this.state.friends.map(friends => (
+                <FriendCard
+                imgClick={this.imgClick}
+                id={friends.id}
+                key={friends.id}
+                image={friends.image}
+              />
+              ))}
             </div>
           </div>
         <Footer />
