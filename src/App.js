@@ -66,6 +66,7 @@ class App extends Component {
               {this.state.friends.map(friends => (
                 <FriendCard
                 imgClick={this.imgClick}
+                name={friends.name}
                 id={friends.id}
                 key={friends.id}
                 image={friends.image}
