@@ -8,7 +8,7 @@ class Navbar extends Component {
       <nav className="navbar navbar-default navbar-fixed-top">
         <div className='nav-wrapper'>
           <span className="itemLeft">GAME OF THRONES</span>
-          <span className="itemRight">SCORE: {this.props.score}</span>
+          <span className="itemRight">HIGH SCORE: {this.props.score} | SCORE: {this.props.score}</span>
         </div>
       </nav>
     );
