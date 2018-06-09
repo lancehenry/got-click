@@ -3,10 +3,10 @@ import React from "react";
 import "./Jumbotron.css";
 
 const Jumbotron = () => (
-	<header className="header">
-		<h1>MEMORY CLICK GAME</h1>
-		<h2>CLICK ON ANY IMAGE TO EARN A POINT. DON'T CLICK ON THE SAME IMAGE TWICE.</h2>
-	</header>
+  <div className="jumbotron jumbotron-fluid">
+	<header className="header"></header>
+  <h2>CLICK ON A CHARACTER TO EARN A POINT. DON'T CLICK ON THE CHARACTER TWICE!</h2>
+  </div>
 );
 
 export default Jumbotron;
