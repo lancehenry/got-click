@@ -12,7 +12,8 @@ class App extends Component {
   state = {
     friends,
     clicked: [],
-    score: 0
+    score: 0,
+    highscore: 0
   };
 
   // Reusable shuffleFriends function
@@ -20,8 +21,18 @@ class App extends Component {
     this.state.friends.sort(function(a, b) { return 0.5 - Math.random(); })
   };
 
+  // Reusable set high score function
+  setHighScore = () => {
+    if (this.state.score > this.state.highscore) {
+      this.setState({
+        highscore: this.state.score
+      });
+    }
+  };
+
   // Reusable reset clicked and score function
   resetClickedAndScore = () => {
+    this.setHighScore();
     this.setState({
       clicked: [],
       score: 0
@@ -63,6 +74,7 @@ class App extends Component {
     return (
       <div className="App">
         <Navbar
+          highscore={this.state.highscore}
           score={this.state.score}
         />
         <Jumbotron />
