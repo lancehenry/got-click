@@ -1,7 +1,6 @@
 .jumbotron {
-  background-image: url("https://pre00.deviantart.net/bb4c/th/pre/f/2011/310/e/6/game_of_thrones_inspiered_background_by_ivegotswagger-d4fa1dz.jpg");
+  background-image: url('https://pre00.deviantart.net/bb4c/th/pre/f/2011/310/e/6/game_of_thrones_inspiered_background_by_ivegotswagger-d4fa1dz.jpg');
   background-blend-mode: multiply;
-  
 }
 
 .header {
@@ -11,7 +10,7 @@
   background-size: 60%;
   position: relative;
   height: 150px;
-	width: 100%;
+  width: 100%;
 }
 
 h2 {
